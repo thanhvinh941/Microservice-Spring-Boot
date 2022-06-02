@@ -1,0 +1,30 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: department-service
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=department_service
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: sa
+    password: sapassword
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+resilience4j:
+  retry:
+    instances:
+      basic:
+        maxRetryAttempts: 3
+        waitDuration: 4s
+  ratelimiter:
+    instances:
+      basicExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 5s
+        timeoutDuration: 3s
